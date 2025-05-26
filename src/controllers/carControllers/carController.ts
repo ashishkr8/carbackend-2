@@ -158,7 +158,7 @@ export const getCarsPopular = asyncHandler(async (req: Request, res: Response) =
   if (category) filters.category = category;
 
   const cars = await Car.find(filters).sort({ rating: -1 }).limit(10);
-
+  console.log("Popular cars:", cars);
   const content = cars.map((car) => ({
     carId: car.carId,
     carRating: car.carRating,

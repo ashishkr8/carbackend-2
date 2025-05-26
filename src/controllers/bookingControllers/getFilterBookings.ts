@@ -21,6 +21,11 @@ const getFilterBookings = asyncHandler(async (req: Request, res: Response) => {
 
   const filteredDates = await bookingDates.find(dateQuery);
 
+  if( filteredDates.length === 0) {
+    res.status(404).json({ message: "No bookings found for the specified dates." });
+    return;
+  }
+
   const bookingIds = filteredDates.map((bd) => bd.bookingId).filter(Boolean);
 
   let bookingQuery: any = { _id: { $in: bookingIds } };
